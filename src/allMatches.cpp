@@ -14,38 +14,38 @@ namespace fs = std::experimental::filesystem;
 using std::cout;
 using std::endl;
 
-allMatches::allMatches(){
+allMatches::allMatches() {
 
     totalMatches = 0;
 }
 
-void allMatches::reset(){
+void allMatches::reset() {
 
     videos.clear();
     totalVideos = 0;
     totalMatches = 0;
 }
 
-void allMatches::addVideo(video v){
+void allMatches::addVideo(video v) {
 
     videos.push_back(v);
     totalVideos++;
     totalMatches = totalMatches + v.getMatchesInVideo();
 }
 
-void allMatches::listAllResults(){
+void allMatches::listAllResults() {
 
-    for(auto x: videos){ 
+    for (auto x: videos) { 
 
         x.printVideoMatches();
     }
 }
 
-void allMatches::listVideoNames(){
+void allMatches::listVideoNames() {
 
     int count = 1;
 
-    for(auto x: videos){ 
+    for (auto x: videos) { 
 
         cout << "video " << count << ": " << x.getName() << endl;
 
@@ -55,35 +55,35 @@ void allMatches::listVideoNames(){
     cout << endl;
 }
 
-void allMatches::listForVideo(int index){
+void allMatches::listForVideo(int index) {
 
-    if (index >= 0 && index <= totalVideos){
+    if (index >= 0 && index <= totalVideos) {
 
         videos[index - 1].printVideoMatches();
     }
-    else{
+    else {
 
         cout << "Invalid input" << endl;
     }
 }
 
-void allMatches::listForVideoTerm(std::string term){
+void allMatches::listForVideoTerm(std::string term) {
 
-    for(auto x: videos){ 
+    for (auto x: videos) { 
 
-        if(videoTitleContainsTarget(x.getName(), term)){
+        if(videoTitleContainsTarget(x.getName(), term)) {
 
             x.printVideoMatches();
         }
     }
 }
 
-int allMatches::getTotalMatches(){
+int allMatches::getTotalMatches() {
 
     return totalMatches;
 }
 
-int allMatches::getTotalVideos(){
+int allMatches::getTotalVideos() {
 
     return totalVideos;
 }

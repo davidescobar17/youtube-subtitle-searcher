@@ -15,7 +15,8 @@ using std::cin;
 using std::cout;
 using std::endl;
 
-void parseFile(std::string file, std::string target, allMatches *a){
+void parseFile(std::string file, std::string target, allMatches *a) {
+    
     std::string line;
     std::ifstream infile(file);
     std::string time;
@@ -26,19 +27,19 @@ void parseFile(std::string file, std::string target, allMatches *a){
 
     std::vector<videoMatch> matches;
 
-    while (std::getline(infile, line)){
+    while (std::getline(infile, line)) {
 
         std::istringstream iss(line);
 
         line = removeTags(line);
 
         // parse the line, it can be time or the text (or blank line)
-        if(isTime(line)){
+        if (isTime(line)) {
             
             time = line;
 
             // if found target, print the time and the passage
-            if (found){
+            if (found) {
 
                 // create new match item
                 videoMatch match(time, passage);
@@ -50,9 +51,9 @@ void parseFile(std::string file, std::string target, allMatches *a){
             found = false;
             passage.clear();
         }
-        else{
+        else {
 
-            if(containsTarget(line, target)){
+            if (containsTarget(line, target)) {
 
                 found = true;
             }
@@ -62,9 +63,7 @@ void parseFile(std::string file, std::string target, allMatches *a){
         }
     }
 
-    if (foundCount == 0){
-    }
-    else{
+    if (foundCount > 0) {
         // this gets filled with all matches, then stored to the results
         video newVideo(file, matches);
         a->addVideo(newVideo);
@@ -74,11 +73,11 @@ void parseFile(std::string file, std::string target, allMatches *a){
 void prompt(allMatches *a);
 void search(allMatches *a);
 
-void prompt(allMatches *a){
+void prompt(allMatches *a) {
 
     std::string option = "";
 
-    while(true){
+    while(true) {
 
           // calls the method that lists out the times and passages
         cout << a->getTotalMatches() << " matches were found across " << a->getTotalVideos() << " video(s):" << endl << endl;
@@ -97,14 +96,14 @@ void prompt(allMatches *a){
         std::ofstream out("out.txt");
         std::streambuf *coutbuf = std::cout.rdbuf(); //save old buf
 
-        if (option == "1"){
+        if (option == "1") {
 
             // redirect output to file
             std::cout.rdbuf(out.rdbuf()); //redirect std::cout to out.txt!
             a->listAllResults();
             std::cout.rdbuf(coutbuf); //reset to standard output again
         }
-        else if (option == "2"){
+        else if (option == "2") {
 
             int videoOption;
 
@@ -119,7 +118,7 @@ void prompt(allMatches *a){
             a->listForVideo(videoOption);
             std::cout.rdbuf(coutbuf); //reset to standard output again
         }
-        else if (option == "3"){
+        else if (option == "3") {
 
             std::string term;
 
@@ -131,21 +130,21 @@ void prompt(allMatches *a){
             a->listForVideoTerm(term);
             std::cout.rdbuf(coutbuf); //reset to standard output again
         }
-        else if (option == "4"){
+        else if (option == "4") {
 
             std::cout.rdbuf(coutbuf); //reset to standard output again
 
             a->reset();
             search(a);
         }
-        else if (option == "q"){
+        else if (option == "q") {
 
             exit(0);
         }
     }
 }
 
-void search(allMatches *a){
+void search(allMatches *a) {
 
     std::string inputFolder = "input";
 
@@ -167,11 +166,11 @@ void search(allMatches *a){
 
     cout << "Output result to file? (add this option)" << endl;
 
-    for (auto &p : fs::recursive_directory_iterator(path)){
+    for (auto &p : fs::recursive_directory_iterator(path)) {
 
-        if(videoTitleContainsTarget(p.path().stem().string(), termInTitle) || termInTitle == ""){
+        if (videoTitleContainsTarget(p.path().stem().string(), termInTitle) || termInTitle == "") {
 
-            if (p.path().extension() == ext){
+            if (p.path().extension() == ext) {
 
                 // std::cout << p.path().stem().string() << '\n';
 
@@ -185,7 +184,7 @@ void search(allMatches *a){
     prompt(a);
 }
 
-int main(){
+int main() {
     
     allMatches* results = new allMatches();
 

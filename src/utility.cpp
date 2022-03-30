@@ -11,9 +11,9 @@ using std::endl;
 
 // stores all matches and global counts, let's user view these
 
-bool isTime(std::string line){
+bool isTime(std::string line) {
     
-    if (line.find("-->") != std::string::npos){
+    if (line.find("-->") != std::string::npos) {
         // cout << "time found" << endl;
         return true;
     }
@@ -22,7 +22,7 @@ bool isTime(std::string line){
 }
 
 // for phrases, needs to be whole word match
-bool containsTarget(std::string line, std::string target){
+bool containsTarget(std::string line, std::string target) {
 
     bool result = false;
     
@@ -38,7 +38,7 @@ bool containsTarget(std::string line, std::string target){
     return result;
 }
 
-std::string removeTags(std::string s){
+std::string removeTags(std::string s) {
 
     std::regex e("<.*?>");
     std::string result;
@@ -48,9 +48,9 @@ std::string removeTags(std::string s){
     return result;
 }
 
-std::string toLowerString(std::string s){
+std::string toLowerString(std::string s) {
 
-    for(int i = 0; i < s.size(); i++){
+    for (int i = 0; i < s.size(); i++) {
         
         s[i] = std::tolower(s[i]);
     }
@@ -58,8 +58,8 @@ std::string toLowerString(std::string s){
     return s;
 }
 
-bool videoTitleContainsTarget(std::string line, std::string target){
-    if (toLowerString(line).find(toLowerString(target)) != std::string::npos){
+bool videoTitleContainsTarget(std::string line, std::string target) {
+    if (toLowerString(line).find(toLowerString(target)) != std::string::npos) {
 
         return true;
     }
