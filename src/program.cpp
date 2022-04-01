@@ -82,7 +82,6 @@ void prompt(allMatches *a) {
           // calls the method that lists out the times and passages
         cout << a->getTotalMatches() << " matches were found across " << a->getTotalVideos() << " video(s):" << endl << endl;
         a->listVideoNames();
-        cout << "(Results will output to out.txt, until option is made)" << endl;
         cout << "1: View all" << endl;
         cout << "2: For specific video" << endl;
         cout << "3: For videos with title containing a specified phrase" << endl;
@@ -102,6 +101,8 @@ void prompt(allMatches *a) {
             std::cout.rdbuf(out.rdbuf()); //redirect std::cout to out.txt!
             a->listAllResults();
             std::cout.rdbuf(coutbuf); //reset to standard output again
+
+            cout << "saved results to out.txt" << endl << endl;
         }
         else if (option == "2") {
 
@@ -117,6 +118,8 @@ void prompt(allMatches *a) {
             std::cout.rdbuf(out.rdbuf()); //redirect std::cout to out.txt!
             a->listForVideo(videoOption);
             std::cout.rdbuf(coutbuf); //reset to standard output again
+
+            cout << "saved results to out.txt" << endl << endl;
         }
         else if (option == "3") {
 
@@ -129,6 +132,8 @@ void prompt(allMatches *a) {
             std::cout.rdbuf(out.rdbuf()); //redirect std::cout to out.txt!
             a->listForVideoTerm(term);
             std::cout.rdbuf(coutbuf); //reset to standard output again
+
+            cout << "saved results to out.txt" << endl << endl;
         }
         else if (option == "4") {
 
@@ -157,22 +162,17 @@ void search(allMatches *a) {
     std::string termInTitle = "";
 
     // ask the user what they are searching for in the subtitles
-    cout << ">>" << path << endl;
     cout << "Enter phrase to search: ";
     getline(cin, toFind);
 
     cout << "Enter phrase in title to filter search (leave empty to search all videos): ";
     getline(cin, termInTitle);
 
-    cout << "Output result to file? (add this option)" << endl;
-
     for (auto &p : fs::recursive_directory_iterator(path)) {
 
         if (videoTitleContainsTarget(p.path().stem().string(), termInTitle) || termInTitle == "") {
 
             if (p.path().extension() == ext) {
-
-                // std::cout << p.path().stem().string() << '\n';
 
                 // parse the contents
                 parseFile(inputFolder + "/" + p.path().stem().string() + ext, toFind, a);
