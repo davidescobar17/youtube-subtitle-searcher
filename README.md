@@ -8,6 +8,10 @@ Subtitles with this format can be downloaded using [youtube-dl](https://github.c
 
     youtube-dl --sub-lang en --write-auto-sub --sub-format vtt --skip-download --output %(title)s-%(id)s.%(ext)s "<link to video>"
 
+## Demo
+
+![demo](./demo/demo.gif)
+
 ## Getting Started
 
 This shows how to get a local copy of the project running for development.
